@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {
-  fetchNotes,
-  createNote,
-  updateNote,
-  deleteNote,
-} from "../services/note.api";
+ fetchNotesAPI,
+  createNoteAPI,
+  updateNoteAPI,
+  deleteNoteAPI,
+} from "../services/api";
 
 import NoteInput from "../components/NoteInput";
 import NoteCard from "../components/NoteCard";
@@ -16,7 +16,7 @@ const Home = () => {
   // Fetch all notes
   const loadNotes = async () => {
     try {
-      const data = await fetchNotes();
+      const data = await fetchNotesAPI();
       setNotes(data);
     } catch (error) {
       console.error("Error fetching notes:", error);
@@ -32,7 +32,7 @@ const Home = () => {
   // Create note
   const handleCreate = async (data) => {
     try {
-      const newNote = await createNote(data);
+      const newNote = await createNoteAPI(data);
       setNotes((prev) => [newNote, ...prev]); // show instantly
     } catch (error) {
       console.error("Error creating note:", error);
@@ -42,7 +42,7 @@ const Home = () => {
   // Update note
   const handleUpdate = async (id, data) => {
     try {
-      const updated = await updateNote(id, data);
+      const updated = await updateNoteAPI(id, data);
       setNotes((prev) =>
         prev.map((note) => (note._id === id ? updated : note))
       );
@@ -54,7 +54,7 @@ const Home = () => {
   // Delete note
   const handleDelete = async (id) => {
     try {
-      await deleteNote(id);
+      await deleteNoteAPI(id);
       setNotes((prev) => prev.filter((note) => note._id !== id));
     } catch (error) {
       console.error("Error deleting note:", error);
