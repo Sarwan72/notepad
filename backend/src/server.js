@@ -6,7 +6,7 @@ import connectDB from "./db/db.js";
 
 import authRoutes from "./routes/auth.route.js";
 import noteRoutes from "./routes/notes.route.js";
-
+import aiRoutes from "./routes/aiRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -24,6 +24,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
+app.use("/api/ai", aiRoutes);
 
 
 

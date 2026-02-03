@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
- fetchNotesAPI,
+  fetchNotesAPI,
   createNoteAPI,
   updateNoteAPI,
   deleteNoteAPI,
@@ -8,12 +8,14 @@ import {
 
 import NoteInput from "../components/NoteInput";
 import NoteCard from "../components/NoteCard";
-
+import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); // <-- for username
 
   // Fetch all notes
+  const navigate = useNavigate();
   const loadNotes = async () => {
     try {
       const data = await fetchNotesAPI();
@@ -26,6 +28,12 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // Get user from localStorage
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+
     loadNotes();
   }, []);
 
@@ -44,7 +52,7 @@ const Home = () => {
     try {
       const updated = await updateNoteAPI(id, data);
       setNotes((prev) =>
-        prev.map((note) => (note._id === id ? updated : note))
+        prev.map((note) => (note._id === id ? updated : note)),
       );
     } catch (error) {
       console.error("Error updating note:", error);
@@ -60,13 +68,25 @@ const Home = () => {
       console.error("Error deleting note:", error);
     }
   };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-center">My Notepad 📝</h1>
+        <h1 className="text-3xl font-bold text-center">
+          {user ? `Hello, ${user.name}` : "My Notepad"}
+        </h1>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+        >
+          Logout
+        </button>
 
-        {/* Create Note */}
         <NoteInput onCreate={handleCreate} />
 
         {/* Notes List */}

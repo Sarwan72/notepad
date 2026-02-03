@@ -46,7 +46,7 @@ const Signup = () => {
       console.log("Signup success:", res);
 
       // Redirect to login page
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.error("Signup error:", err);
       setError(err.response?.data?.message || "Signup failed. Try again.");

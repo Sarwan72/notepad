@@ -43,3 +43,8 @@ export const deleteNoteAPI = async (id) => {
   const res = await API.delete(`/notes/${id}`);
   return res.data;
 };
+
+export const summarizeTextAPI = async (text) => {
+  const res = await API.post("/ai/summarize", { text });
+  return res.data;
+};
