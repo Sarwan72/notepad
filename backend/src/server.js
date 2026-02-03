@@ -14,7 +14,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://notepad-nine-mu.vercel.app/"],
+    origin: [
+  "https://notepad-nine-mu.vercel.app",
+  "https://notepad-git-main-sarwan-kumars-projects-17476828.vercel.app",
+  "http://localhost:3000"
+],
     credentials: true,
   })
 );
