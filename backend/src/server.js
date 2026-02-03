@@ -17,7 +17,7 @@ app.use(
     origin: [
   "https://notepad-nine-mu.vercel.app",
   "https://notepad-git-main-sarwan-kumars-projects-17476828.vercel.app",
-  "http://localhost:3000"
+  "http://localhost:5173",
 ],
     credentials: true,
   })

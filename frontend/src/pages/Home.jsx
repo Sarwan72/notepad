@@ -91,7 +91,7 @@ const Home = () => {
 
         <NoteInput onCreate={handleCreate} />
 
-        {/* Notes List */}
+   
         {loading ? (
           <p className="text-center text-gray-500">Loading notes...</p>
         ) : notes.length === 0 ? (
